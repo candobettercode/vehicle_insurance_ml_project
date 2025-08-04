@@ -7,80 +7,31 @@ from src.components.data_ingestion import DataIngestion
 from src.components.data_validation import DataValidation
 from src.components.data_transformation import DataTransformation
 from src.components.model_trainer import ModelTrainer
-<<<<<<< HEAD
-<<<<<<< HEAD
-#from src.components.model_evaluation import ModelEvaluation
-#from src.components.model_pusher import ModelPusher
-=======
 from src.components.model_evaluation import ModelEvaluation
 from src.components.model_pusher import ModelPusher
->>>>>>> e011246 (model evaluation completed. model loaded on S3 bucket)
-=======
-from src.components.model_evaluation import ModelEvaluation
-from src.components.model_pusher import ModelPusher
->>>>>>> e011246b97daf7908612f13768207d85b4f60fd3
 
 from src.entity.config_entity import (DataIngestionConfig,
                                     DataValidationConfig,
                                     DataTransformationConfig,
-<<<<<<< HEAD
-<<<<<<< HEAD
-                                    ModelTrainerConfig)
-                                    #    ModelEvaluationConfig,
-                                    #    ModelPusherConfig)
-=======
                                     ModelTrainerConfig,
                                     ModelEvaluationConfig,
                                     ModelPusherConfig)
->>>>>>> e011246 (model evaluation completed. model loaded on S3 bucket)
-=======
-                                    ModelTrainerConfig,
-                                    ModelEvaluationConfig,
-                                    ModelPusherConfig)
->>>>>>> e011246b97daf7908612f13768207d85b4f60fd3
                                     
 from src.entity.artifact_entity import (DataIngestionArtifact,
-                                        DataValidationArtifact,
-                                        DataTransformationArtifact,
-<<<<<<< HEAD
-<<<<<<< HEAD
-                                        ModelTrainerArtifact)
-                                        #    ModelEvaluationArtifact,
-                                        #    ModelPusherArtifact)
-=======
-                                        ModelTrainerArtifact,
-                                        ModelEvaluationArtifact,
-                                        ModelPusherArtifact)
->>>>>>> e011246 (model evaluation completed. model loaded on S3 bucket)
-=======
-                                        ModelTrainerArtifact,
-                                        ModelEvaluationArtifact,
-                                        ModelPusherArtifact)
->>>>>>> e011246b97daf7908612f13768207d85b4f60fd3
-
-
-
+                                            DataValidationArtifact,
+                                            DataTransformationArtifact,
+                                            ModelTrainerArtifact,
+                                            ModelEvaluationArtifact,
+                                            ModelPusherArtifact)
 class TrainPipeline:
     def __init__(self):
         self.data_ingestion_config = DataIngestionConfig()
         self.data_validation_config = DataValidationConfig()
         self.data_transformation_config = DataTransformationConfig()
         self.model_trainer_config = ModelTrainerConfig()
-<<<<<<< HEAD
-<<<<<<< HEAD
-        #self.model_evaluation_config = ModelEvaluationConfig()
-        #self.model_pusher_config = ModelPusherConfig()
-=======
         self.model_evaluation_config = ModelEvaluationConfig()
         self.model_pusher_config = ModelPusherConfig()
->>>>>>> e011246 (model evaluation completed. model loaded on S3 bucket)
-=======
-        self.model_evaluation_config = ModelEvaluationConfig()
-        self.model_pusher_config = ModelPusherConfig()
->>>>>>> e011246b97daf7908612f13768207d85b4f60fd3
 
-
-    
     def start_data_ingestion(self) -> DataIngestionArtifact:
         """
         This method of TrainPipeline class is responsible for starting data ingestion component
@@ -142,14 +93,7 @@ class TrainPipeline:
 
         except Exception as e:
             raise MyException(e, sys)
-        
-<<<<<<< HEAD
-<<<<<<< HEAD
-    '''
-=======
->>>>>>> e011246 (model evaluation completed. model loaded on S3 bucket)
-=======
->>>>>>> e011246b97daf7908612f13768207d85b4f60fd3
+
     def start_model_evaluation(self, data_ingestion_artifact: DataIngestionArtifact,
                             model_trainer_artifact: ModelTrainerArtifact) -> ModelEvaluationArtifact:
         """
@@ -182,34 +126,17 @@ class TrainPipeline:
         This method of TrainPipeline class is responsible for running complete pipeline
         """
         try:
-            load_dotenv()
             data_ingestion_artifact = self.start_data_ingestion()
             data_validation_artifact = self.start_data_validation(data_ingestion_artifact=data_ingestion_artifact)
-            data_transformation_artifact = self.start_data_transformation(data_ingestion_artifact=data_ingestion_artifact, 
-                                                                        data_validation_artifact=data_validation_artifact)
+            data_transformation_artifact = self.start_data_transformation(
+                data_ingestion_artifact=data_ingestion_artifact, data_validation_artifact=data_validation_artifact)
             model_trainer_artifact = self.start_model_trainer(data_transformation_artifact=data_transformation_artifact)
-<<<<<<< HEAD
-<<<<<<< HEAD
-            #model_evaluation_artifact = self.start_model_evaluation(data_ingestion_artifact=data_ingestion_artifact,
-                                                                    #model_trainer_artifact=model_trainer_artifact)
-            #if not model_evaluation_artifact.is_model_accepted:
-            #    logging.info(f"Model not accepted.")
-            #    return None
-            #model_pusher_artifact = self.start_model_pusher(model_evaluation_artifact=model_evaluation_artifact)
-=======
-=======
->>>>>>> e011246b97daf7908612f13768207d85b4f60fd3
             model_evaluation_artifact = self.start_model_evaluation(data_ingestion_artifact=data_ingestion_artifact,
                                                                     model_trainer_artifact=model_trainer_artifact)
             if not model_evaluation_artifact.is_model_accepted:
                 logging.info(f"Model not accepted.")
                 return None
             model_pusher_artifact = self.start_model_pusher(model_evaluation_artifact=model_evaluation_artifact)
-<<<<<<< HEAD
->>>>>>> e011246 (model evaluation completed. model loaded on S3 bucket)
-=======
->>>>>>> e011246b97daf7908612f13768207d85b4f60fd3
             
         except Exception as e:
             raise MyException(e, sys)
-            
