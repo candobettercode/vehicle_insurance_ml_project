@@ -7,8 +7,8 @@ Welcome to this MLOps project, designed to demonstrate a robust pipeline for man
 <p align="left">
   <img src="notebook/vehicle_prediction.gif" width="600" height="400" />
 </p> 
----
 
+---
 ## 📁 Project Setup and Structure
 
 ### Step 1: Project Template
